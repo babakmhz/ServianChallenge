@@ -20,8 +20,8 @@ class RepositoryImpl @Inject constructor(
         users: ArrayList<UserResponse>,
         photos: ArrayList<PhotosResponse>
     ) {
-//          the java way
 
+        //the kotlin way
 //        for (user in users) {
 //            val userPhotos = photos.filter { user.id == it.albumId }
 //            photosWithOwner[user.id] = userPhotos as ArrayList<PhotosResponse>
@@ -53,6 +53,7 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getData(users: (ArrayList<UserResponse>) -> Unit) {
         getUsers().zip(getPhotos()) { usersResponse, photosResponse ->
             users(usersResponse)
+            findPhotosForOwner(usersResponse,photosResponse)
         }
 
     }
