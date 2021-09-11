@@ -1,5 +1,6 @@
 package com.babakmhz.servianchallenge.data
 
+import androidx.annotation.VisibleForTesting
 import com.babakmhz.servianchallenge.data.network.ApiHelper
 import com.babakmhz.servianchallenge.data.network.response.PhotosResponse
 import com.babakmhz.servianchallenge.data.network.response.UserResponse
@@ -11,36 +12,37 @@ class RepositoryImpl @Inject constructor(
     private val apiHelper: ApiHelper
 ) : RepositoryHelper {
 
-    private val photosWithOwner = hashMapOf<Long, ArrayList<PhotosResponse>>()
+    @VisibleForTesting
+    val photosWithOwner = hashMapOf<Long, ArrayList<PhotosResponse>>()
 
-    private suspend fun findPhotosForOwner(
+    @VisibleForTesting
+    suspend fun findPhotosForOwner(
         users: ArrayList<UserResponse>,
         photos: ArrayList<PhotosResponse>
     ) {
+//          the java way
 
 //        for (user in users) {
 //            val userPhotos = photos.filter { user.id == it.albumId }
 //            photosWithOwner[user.id] = userPhotos as ArrayList<PhotosResponse>
 //        }
 
-        //manual way :
-        var leftPointer = 0
-        users.sortByDescending { it.id }
-        photos.sortByDescending { it.albumId }
-        while (leftPointer < photos.size && leftPointer < users.size) {
-            val user = users[leftPointer]
-            val photo = photos[leftPointer]
+
+
+        // manual way
+        var userPointer = 0
+        var photosPointer = 0
+
+        while (userPointer < users.size && photosPointer < photos.size) {
+            val user = users[userPointer]
+            val photo = photos[photosPointer]
             if (user.id == photo.albumId) {
-                if (photosWithOwner.containsKey(user.id))
-                    photosWithOwner[user.id]?.add(photo)
-                else
-                    photosWithOwner[user.id] = arrayListOf(photo)
-            }
-
-            leftPointer++
-
+                if (photosWithOwner.containsKey(user.id)) photosWithOwner[user.id]?.add(photo) else photosWithOwner[user.id] =
+                    arrayListOf(photo)
+                photosPointer ++
+            }else
+                userPointer ++
         }
-
 
     }
 
@@ -49,9 +51,8 @@ class RepositoryImpl @Inject constructor(
 
     //users
     override suspend fun getData(users: (ArrayList<UserResponse>) -> Unit) {
-        getUsers().zip(getPhotos()) { users, photos ->
-            users(users)
-
+        getUsers().zip(getPhotos()) { usersResponse, photosResponse ->
+            users(usersResponse)
         }
 
     }
