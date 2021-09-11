@@ -30,6 +30,8 @@ class RepositoryImpl @Inject constructor(
 
 
         // manual way
+        users.sortBy { it.id }
+        photos.sortBy { it.albumId }
         var userPointer = 0
         var photosPointer = 0
 
