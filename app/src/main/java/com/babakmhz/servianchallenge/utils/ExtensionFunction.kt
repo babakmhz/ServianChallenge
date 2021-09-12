@@ -1,6 +1,9 @@
 package com.babakmhz.servianchallenge.utils
 
 import android.view.View
+import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 fun View?.toVisible() {
     if (this?.visibility != View.VISIBLE)
@@ -20,4 +23,15 @@ fun View?.toInvisible() {
 
 fun String?.validString() = this != null && this.isNotEmpty()
 
+
+fun <T : Any> CoroutineScope.safeLaunch(
+    liveData: MutableLiveData<State<T>>,
+    coroutineBlock: suspend CoroutineScope.() -> Unit
+): Job {
+    return this.launch(CoroutineExceptionHandler{ _, throwable ->
+        throwable.printStackTrace()
+        liveData.postValue(State.Error(throwable))
+    }, block = coroutineBlock)
+
+}
 

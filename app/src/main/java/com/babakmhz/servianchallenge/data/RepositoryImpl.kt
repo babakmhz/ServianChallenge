@@ -4,12 +4,15 @@ import androidx.annotation.VisibleForTesting
 import com.babakmhz.servianchallenge.data.network.ApiHelper
 import com.babakmhz.servianchallenge.data.network.response.PhotosResponse
 import com.babakmhz.servianchallenge.data.network.response.UserResponse
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.zip
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val apiHelper: ApiHelper
+    private val apiHelper: ApiHelper,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RepositoryHelper {
 
     @VisibleForTesting
@@ -28,7 +31,6 @@ class RepositoryImpl @Inject constructor(
 //        }
 
 
-
         // manual way
         users.sortBy { it.id }
         photos.sortBy { it.albumId }
@@ -41,9 +43,9 @@ class RepositoryImpl @Inject constructor(
             if (user.id == photo.albumId) {
                 if (photosWithOwner.containsKey(user.id)) photosWithOwner[user.id]?.add(photo) else photosWithOwner[user.id] =
                     arrayListOf(photo)
-                photosPointer ++
-            }else
-                userPointer ++
+                photosPointer++
+            } else
+                userPointer++
         }
 
     }
@@ -55,7 +57,7 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getData(users: (ArrayList<UserResponse>) -> Unit) {
         getUsers().zip(getPhotos()) { usersResponse, photosResponse ->
             users(usersResponse)
-            findPhotosForOwner(usersResponse,photosResponse)
+            findPhotosForOwner(usersResponse, photosResponse)
         }
 
     }
