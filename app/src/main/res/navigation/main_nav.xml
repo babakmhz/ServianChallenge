@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.babakmhz.servianchallenge.UsersFragment"
+        android:label="fragment_users_list"
+        tools:layout="@layout/fragment_users_list" >
+        <action
+            android:id="@+id/action_usersFragment_to_ablumFragment"
+            app:destination="@id/ablumFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ablumFragment"
+        android:name="com.babakmhz.servianchallenge.AlbumFragment"
+        android:label="fragment_ablum_list"
+        tools:layout="@layout/fragment_ablum_list" >
+        <action
+            android:id="@+id/action_ablumFragment_to_photoFragment"
+            app:destination="@id/photoFragment" />
+        <argument
+            android:name="userId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="com.babakmhz.servianchallenge.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" />
+</navigation>

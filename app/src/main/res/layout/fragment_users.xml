@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repo"
+            type="com.babakmhz.servianchallenge.data.network.response.UserResponse" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/card_default_corner_radius"
+        app:cardBackgroundColor="@color/main_blue"
+        app:cardElevation="@dimen/card_default_elevation"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp">
+
+            <TextView
+                android:id="@+id/item_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:text="@{`ID:`+repo.id}"
+                tools:text="ID:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:text="@{`Name:`+repo.name}"
+                tools:text="Name:John"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_id" />
+
+
+            <TextView
+                android:id="@+id/item_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Email:`+repo.email}"
+                tools:text="Email:Email"
+                android:textColor="@color/white"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_name" />
+
+
+            <TextView
+                android:id="@+id/item_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Phone:`+repo.phone}"
+                android:textColor="@color/white"
+                tools:text="Phone:phone"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_email" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

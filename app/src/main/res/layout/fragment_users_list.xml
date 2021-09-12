@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.babakmhz.servianchallenge.UsersFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:text="@string/user_info" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcl_users"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:itemCount="10"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".UsersFragment"
+        tools:listitem="@layout/fragment_users" />
+</LinearLayout>
