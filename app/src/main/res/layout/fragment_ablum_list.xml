@@ -5,6 +5,7 @@
     android:name="com.babakmhz.servianchallenge.AlbumFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_album"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical">

@@ -34,6 +34,12 @@ android {
         jvmTarget = '1.8'
     }
 
+    // avoiding crash in "ServiceLoaderWrapper" class while ui testing
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.test:monitor:1.4.0'
+        }
+    }
 
     buildFeatures {
         dataBinding true
