@@ -1,23 +1,21 @@
-package com.babakmhz.servianchallenge
+package com.babakmhz.servianchallenge.ui.base.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.babakmhz.servianchallenge.data.network.response.PhotosResponse
+import com.babakmhz.servianchallenge.R
 import com.babakmhz.servianchallenge.data.network.response.UserResponse
-import com.babakmhz.servianchallenge.databinding.FragmentAlbumBinding
+import com.babakmhz.servianchallenge.databinding.FragmentUsersBinding
 
-
-class AlbumItemRecyclerViewAdapter(
-    private val items: ArrayList<PhotosResponse>,
-    private val onAlbumClicked: (PhotosResponse) -> Unit
-) : RecyclerView.Adapter<AlbumItemRecyclerViewAdapter.ViewHolder>() {
+class UsersRecyclerViewAdapter(
+    private val items: ArrayList<UserResponse>,
+    private val onUserClicked: (UserResponse) -> Unit
+) : RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         return ViewHolder(
-            FragmentAlbumBinding.inflate(
+            FragmentUsersBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -26,9 +24,9 @@ class AlbumItemRecyclerViewAdapter(
 
     }
 
-    fun addData(photos: ArrayList<PhotosResponse>) {
+    fun addData(users: ArrayList<UserResponse>) {
         this.items.clear()
-        this.items.addAll(photos)
+        this.items.addAll(users)
         notifyDataSetChanged()
     }
 
@@ -38,16 +36,20 @@ class AlbumItemRecyclerViewAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    inner class ViewHolder(private val binding: FragmentAlbumBinding) :
+    inner class ViewHolder(private val binding: FragmentUsersBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val item_userContainer = binding.root.findViewById<CardView>(R.id.container)
-        fun bind(item: PhotosResponse) {
+
+        fun bind(item: UserResponse) {
             binding.repo = item
             binding.executePendingBindings()
-            item_userContainer.setOnClickListener { onAlbumClicked(item) }
+
+            item_userContainer.setOnClickListener { onUserClicked(item) }
 
         }
+
+
     }
 
 }

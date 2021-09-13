@@ -1,4 +1,4 @@
-package com.babakmhz.servianchallenge
+package com.babakmhz.servianchallenge.ui.base.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.babakmhz.servianchallenge.R
 import com.babakmhz.servianchallenge.ui.base.BaseFragment
-import com.babakmhz.servianchallenge.ui.base.main.MainViewModel
 import com.babakmhz.servianchallenge.utils.State
 import kotlinx.android.synthetic.main.fragment_ablum_list.*
 import timber.log.Timber

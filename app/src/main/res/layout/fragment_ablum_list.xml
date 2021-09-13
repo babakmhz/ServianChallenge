@@ -25,6 +25,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".AlbumFragment"
+        tools:context=".ui.base.main.AlbumFragment"
         tools:listitem="@layout/fragment_album" />
 </LinearLayout>

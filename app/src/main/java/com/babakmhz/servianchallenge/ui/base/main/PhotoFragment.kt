@@ -1,13 +1,13 @@
-package com.babakmhz.servianchallenge
+package com.babakmhz.servianchallenge.ui.base.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import com.babakmhz.servianchallenge.R
 import com.babakmhz.servianchallenge.ui.base.BaseFragment
 import com.babakmhz.servianchallenge.utils.AppUtils
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_photo.*
 
 

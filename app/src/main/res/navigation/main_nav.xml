@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/usersFragment"
-        android:name="com.babakmhz.servianchallenge.UsersFragment"
+        android:name="com.babakmhz.servianchallenge.ui.base.main.UsersFragment"
         android:label="fragment_users_list"
         tools:layout="@layout/fragment_users_list" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.babakmhz.servianchallenge.AlbumFragment"
+        android:name="com.babakmhz.servianchallenge.ui.base.main.AlbumFragment"
         android:label="fragment_ablum_list">
         <action
             android:id="@+id/action_ablumFragment_to_photoFragment"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
-        android:name="com.babakmhz.servianchallenge.PhotoFragment"
+        android:name="com.babakmhz.servianchallenge.ui.base.main.PhotoFragment"
         android:label="fragment_photo"
         tools:layout="@layout/fragment_photo" >
         <argument

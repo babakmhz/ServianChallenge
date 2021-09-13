@@ -27,6 +27,6 @@
         android:layout_weight="1"
         tools:itemCount="10"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".UsersFragment"
+        tools:context=".ui.base.main.UsersFragment"
         tools:listitem="@layout/fragment_users" />
 </LinearLayout>
