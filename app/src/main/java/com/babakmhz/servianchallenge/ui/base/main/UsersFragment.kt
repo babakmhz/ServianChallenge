@@ -49,6 +49,7 @@ class UsersFragment : BaseFragment() {
                     hideLoadingDialog(this::class.java.simpleName)
                     adapter.addData(it.data)
                 }
+                State.Idle ->{}
             }
         })
     }

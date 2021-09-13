@@ -49,7 +49,7 @@ class RepositoryImplTest {
         val photos = arrayListOf<PhotosResponse>()
         for(i in 0 until 20){
             for(j in 0 until ALBUMS_PER_USER){
-                val photo = PhotosResponse("","",i.toLong())
+                val photo = PhotosResponse("","",i.toLong(),"",i.toLong())
                 photos.add(photo)
             }
         }

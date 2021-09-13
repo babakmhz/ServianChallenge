@@ -26,8 +26,10 @@ class MainViewModel @Inject constructor(private val repositoryHelper: Repository
 
     fun getUsers() {
 
-        if (shouldGetUsers.not())
+        if (shouldGetUsers.not()){
+            _usersLiveData.postValue(State.Idle)
             return
+        }
 
         viewModelScope.safeLaunch(_usersLiveData) {
             _usersLiveData.postValue(State.Loading)
