@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.babakmhz.servianchallenge.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of Items.
@@ -38,7 +37,6 @@ class AlbumFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = AblumItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
         return view

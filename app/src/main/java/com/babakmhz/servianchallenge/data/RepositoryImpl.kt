@@ -7,14 +7,18 @@ import com.babakmhz.servianchallenge.data.network.response.UserResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.zip
+import timber.log.Timber
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val apiHelper: ApiHelper,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RepositoryHelper {
 
+    @VisibleForTesting
+    var dispatcher = Dispatchers.IO
     @VisibleForTesting
     val photosWithOwner = hashMapOf<Long, ArrayList<PhotosResponse>>()
 
@@ -55,9 +59,14 @@ class RepositoryImpl @Inject constructor(
 
     //users
     override suspend fun getData(users: (ArrayList<UserResponse>) -> Unit) {
+//        getUsers()
+//        getPhotos()
         getUsers().zip(getPhotos()) { usersResponse, photosResponse ->
+            Timber.i("got response from api user photo")
             users(usersResponse)
             findPhotosForOwner(usersResponse, photosResponse)
+            return@zip
+        }.flowOn(dispatcher).collect {
         }
 
     }

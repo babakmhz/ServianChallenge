@@ -1,6 +1,5 @@
 package com.babakmhz.servianchallenge.ui.base.main
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,16 +8,12 @@ import com.babakmhz.servianchallenge.data.RepositoryHelper
 import com.babakmhz.servianchallenge.data.network.response.UserResponse
 import com.babakmhz.servianchallenge.utils.State
 import com.babakmhz.servianchallenge.utils.safeLaunch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.handleCoroutineException
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel @Inject constructor(private val repositoryHelper: RepositoryHelper) :
     ViewModel() {
-
-    @VisibleForTesting
-    var coroutineDispatcher = Dispatchers.IO
 
     private var _usersLiveData = MutableLiveData<State<ArrayList<UserResponse>>>()
     val usersLiveData: LiveData<State<ArrayList<UserResponse>>> = _usersLiveData

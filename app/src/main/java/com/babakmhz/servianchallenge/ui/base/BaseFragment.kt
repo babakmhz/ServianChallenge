@@ -33,6 +33,7 @@ abstract class BaseFragment : Fragment(), LoadingContainer {
         return ViewModelProvider(requireActivity()).get(viewModel)
     }
 
+
     override fun getLoadingIdsArray(): ArrayList<Int> {
         return loadingIds
     }

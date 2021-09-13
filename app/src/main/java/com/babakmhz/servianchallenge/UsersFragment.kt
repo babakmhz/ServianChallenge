@@ -1,60 +1,73 @@
 package com.babakmhz.servianchallenge
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.babakmhz.servianchallenge.placeholder.PlaceholderContent
+import androidx.navigation.fragment.findNavController
+import com.babakmhz.servianchallenge.ui.base.BaseFragment
+import com.babakmhz.servianchallenge.ui.base.main.MainViewModel
+import com.babakmhz.servianchallenge.utils.State
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_users_list.*
+import timber.log.Timber
 
-/**
- * A fragment representing a list of Items.
- */
-class UsersFragment : Fragment() {
 
-    private var columnCount = 1
+class UsersFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var adapter: UsersRecyclerViewAdapter
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
+    private val viewModel: MainViewModel by lazy {
+        getSharedViewModel(MainViewModel::class.java)
+    }
+
+    override fun initializeViewModel() {
+    }
+
+    override fun initializeUI() {
+        adapter = UsersRecyclerViewAdapter(arrayListOf()) {
+            findNavController().navigate(R.id.albumFragment)
         }
+        rcl_users.adapter = adapter
+
+    }
+
+    private fun showErrorSnackBar() {
+        Snackbar.make(requireView(), "Error occurred!", Snackbar.LENGTH_LONG).setAction("OK") {
+        }.show()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Timber.i("savedInstanceState in UserFragment is $savedInstanceState")
+        if (savedInstanceState == null)
+            viewModel.getUsers()
+        viewModel.usersLiveData.observe(viewLifecycleOwner, {
+            when (it) {
+                State.Loading -> {
+                    showLoadingDialog(this::class.java.simpleName)
+                }
+                is State.Error -> showErrorSnackBar()
+                is State.Success -> {
+                    hideLoadingDialog(this::class.java.simpleName)
+                    adapter.addData(it.data)
+                }
+            }
+        })
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_users_list, container, false)
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = UsersRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            }
-        }
-        return view
+        return inflater.inflate(R.layout.fragment_users_list, container, false)
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(columnCount: Int) =
+        fun newInstance() =
             UsersFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
                 }
             }
     }

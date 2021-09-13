@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_users_list" >
         <action
             android:id="@+id/action_usersFragment_to_ablumFragment"
-            app:destination="@id/ablumFragment" />
+            app:destination="@id/albumFragment" />
     </fragment>
     <fragment
-        android:id="@+id/ablumFragment"
+        android:id="@+id/albumFragment"
         android:name="com.babakmhz.servianchallenge.AlbumFragment"
         android:label="fragment_ablum_list"
         tools:layout="@layout/fragment_ablum_list" >

@@ -41,7 +41,7 @@ class MainViewModelTest {
     fun setup() {
         repoHelper = mockk()
         viewModel = MainViewModel(repoHelper)
-        viewModel.coroutineDispatcher = coroutineDispatcher
+//        viewModel.coroutineDispatcher = coroutineDispatcher
     }
 
 
