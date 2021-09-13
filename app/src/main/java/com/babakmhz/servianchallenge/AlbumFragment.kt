@@ -50,7 +50,7 @@ class AlbumFragment : BaseFragment() {
     override fun initializeUI() {
         adapter = AlbumItemRecyclerViewAdapter(arrayListOf()) {
             val action = AlbumFragmentDirections.actionAblumFragmentToPhotoFragment(
-                it.albumId, it.id, it.title
+                it.albumId, it.id, it.title,it.url
             )
             findNavController().navigate(action)
         }

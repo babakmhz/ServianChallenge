@@ -43,5 +43,9 @@
             android:name="imageText"
             app:argType="string"
             android:defaultValue='""' />
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
 </navigation>
