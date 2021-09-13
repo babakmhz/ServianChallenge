@@ -6,12 +6,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.babakmhz.servianchallenge.utils.LoadingContainer
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 abstract class BaseFragment : Fragment(), LoadingContainer {
     private var loadingDialog: LoadingDialog? = null
     private val loadingIds = ArrayList<Int>()
 
+    fun showErrorSnackBar() {
+        Snackbar.make(requireView(), "Error occurred!", Snackbar.LENGTH_LONG).setAction("OK") {
+        }.show()
+    }
 
     override fun getLoadingDialog(): LoadingDialog {
         if (loadingDialog == null) {

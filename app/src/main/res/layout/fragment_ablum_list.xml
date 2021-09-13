@@ -15,6 +15,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
+        android:id="@+id/txt_header"
         android:gravity="center"
         android:textSize="18sp"
         android:text="@string/album_id_d" />

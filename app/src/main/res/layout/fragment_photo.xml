@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/txt_albumId"
             android:textColor="@color/black"
             android:gravity="center"
             android:textSize="18sp"
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/black"
+            android:id="@+id/txt_photoId"
             android:gravity="center"
             android:textSize="18sp"
             android:text="@string/photo_id_d" />

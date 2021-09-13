@@ -17,19 +17,31 @@
     <fragment
         android:id="@+id/albumFragment"
         android:name="com.babakmhz.servianchallenge.AlbumFragment"
-        android:label="fragment_ablum_list"
-        tools:layout="@layout/fragment_ablum_list" >
+        android:label="fragment_ablum_list">
         <action
             android:id="@+id/action_ablumFragment_to_photoFragment"
             app:destination="@id/photoFragment" />
         <argument
             android:name="userId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
         android:name="com.babakmhz.servianchallenge.PhotoFragment"
         android:label="fragment_photo"
-        tools:layout="@layout/fragment_photo" />
+        tools:layout="@layout/fragment_photo" >
+        <argument
+            android:name="albumId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="photoId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="imageText"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

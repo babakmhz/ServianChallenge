@@ -26,16 +26,14 @@ class UsersFragment : BaseFragment() {
 
     override fun initializeUI() {
         adapter = UsersRecyclerViewAdapter(arrayListOf()) {
-            findNavController().navigate(R.id.albumFragment)
+            val action = UsersFragmentDirections.actionUsersFragmentToAblumFragment(it.id)
+            findNavController().navigate(action)
         }
         rcl_users.adapter = adapter
 
     }
 
-    private fun showErrorSnackBar() {
-        Snackbar.make(requireView(), "Error occurred!", Snackbar.LENGTH_LONG).setAction("OK") {
-        }.show()
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,6 +62,7 @@ class UsersFragment : BaseFragment() {
     }
 
     companion object {
+
         @JvmStatic
         fun newInstance() =
             UsersFragment().apply {

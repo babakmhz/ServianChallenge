@@ -1,58 +1,78 @@
 package com.babakmhz.servianchallenge
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.babakmhz.servianchallenge.ui.base.BaseFragment
+import com.babakmhz.servianchallenge.ui.base.main.MainViewModel
+import com.babakmhz.servianchallenge.utils.State
+import kotlinx.android.synthetic.main.fragment_ablum_list.*
+import timber.log.Timber
 
-/**
- * A fragment representing a list of Items.
- */
-class AlbumFragment : Fragment() {
+class AlbumFragment : BaseFragment() {
 
-    private var columnCount = 1
+    val args: AlbumFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val viewModel: MainViewModel by lazy {
+        getSharedViewModel(MainViewModel::class.java)
+    }
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
+    private lateinit var adapter: AlbumItemRecyclerViewAdapter
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        viewModel.albumsOfUser.observe(viewLifecycleOwner, {
+            when (it) {
+                State.Loading -> {
+                    showLoadingDialog(this::class.java.simpleName)
+                }
+                is State.Error -> showErrorSnackBar()
+                is State.Success -> {
+                    Timber.i("got data ${it.data}")
+                    hideLoadingDialog(this::class.java.simpleName)
+                    adapter.addData(it.data)
+                }
+            }
+        })
+    }
+
+    override fun initializeViewModel() {
+        Timber.i("args of albumFragment $args")
+        viewModel.getAlbumsOfUser(args.userId)
+    }
+
+    override fun initializeUI() {
+        adapter = AlbumItemRecyclerViewAdapter(arrayListOf()) {
+            val action = AlbumFragmentDirections.actionAblumFragmentToPhotoFragment(
+                it.albumId, it.id, it.title
+            )
+            findNavController().navigate(action)
         }
+        rcl_album.adapter = adapter
+        txt_header.apply {
+            text = getString(R.string.album_id_d,args.userId.toInt())
+        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_ablum_list, container, false)
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-            }
-        }
-        return view
+        return inflater.inflate(R.layout.fragment_ablum_list, container, false)
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(columnCount: Int) =
+        fun newInstance() =
             AlbumFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
                 }
             }
     }
